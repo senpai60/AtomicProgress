@@ -1,0 +1,19 @@
+{
+  "accessibility.signals.chatResponseReceived.sound": "off",
+  "accessibility.signals.chatRequestSent.sound": "off",
+  "accessibility.signals.terminalBell.sound": "off",
+  "accessibility.signals.taskCompleted.sound": "off",
+  "accessibility.signalOptions.volume": 0,
+  "accessibility.signals.taskCompleted": {
+    "sound": "off"
+  },
+  "accessibility.signals.terminalBell": {
+    "sound": "off"
+  },
+  "accessibility.signals.chatRequestSent": {
+    "sound": "off"
+  },
+  "accessibility.signals.chatResponseReceived": {
+    "sound": "off"
+  }
+}
