@@ -12,17 +12,10 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from "../ui/sidebar";
-import {
-  Sun,
-  Moon,
-  Home,
-  CheckSquare,
-  Calendar,
-  Settings,
-  Atom,
-} from "lucide-react";
+import { Sun, Moon, Atom } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { routeConfig } from "@/routes";
 
 const updateTheme = (theme: string) => {
   const body = document.querySelector("body");
@@ -33,16 +26,10 @@ const updateTheme = (theme: string) => {
   }
 };
 
-const navItems = [
-  { title: "Dashboard", icon: Home, url: "/" },
-  { title: "Tasks", icon: CheckSquare, url: "/tasks" },
-  { title: "Calendar", icon: Calendar, url: "#" },
-  { title: "Settings", icon: Settings, url: "#" },
-];
-
 const Aside = () => {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     updateTheme(theme);
@@ -78,21 +65,26 @@ const Aside = () => {
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    onClick={() => {
-                      if (item.url !== "#") {
-                        navigate(item.url);
-                      }
-                    }}
-                    tooltip={item.title}
-                  >
-                    <item.icon className="size-4" />
-                    <span>{item.title}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {routeConfig.map((item) => {
+                const Icon = item.icon;
+                const isActive = location.pathname === item.path;
+                return (
+                  <SidebarMenuItem key={item.name}>
+                    <SidebarMenuButton
+                      isActive={isActive}
+                      onClick={() => {
+                        if (item.path !== "#") {
+                          navigate(item.path);
+                        }
+                      }}
+                      tooltip={item.name}
+                    >
+                      <Icon className="size-4" />
+                      <span>{item.name}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
